@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".Activities.MainActivity"
+    android:background="#77422c">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="false"
+        android:baselineAligned="false"
+        android:measureWithLargestChild="false"
+        android:id="@+id/linearLayout">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Имя игрока"
+            android:id="@+id/textView"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#ffffff"
+            android:background="#8cc8cf"
+            android:textSize="32sp" />
+
+        <Button
+            android:text="@string/start_game"
+            android:id="@+id/button"
+            android:onClick="startGameButton"
+            style="@style/standart_button"
+            android:layout_height="64dp"
+            android:layout_width="fill_parent" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:onClick="changeGameButton"
+            android:layout_height="64dp"
+            android:text="@string/change_gamer"
+            android:id="@+id/button2"
+            style="@style/standart_button" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="64dp"
+            android:text="@string/settings"
+            android:onClick="settingButton"
+            android:id="@+id/button3"
+            style="@style/standart_button" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="64dp"
+            android:onClick="helpButton"
+            android:text="@string/help"
+            android:id="@+id/button4"
+            style="@style/standart_button" />
+
+        <Button
+            android:text="@string/exit"
+            android:id="@+id/button5"
+            style="@style/exit_button"
+            android:layout_height="64dp"
+            android:layout_marginTop="5dp"
+            android:onClick="exitButton" />
+
+    </LinearLayout>
+
+</RelativeLayout>

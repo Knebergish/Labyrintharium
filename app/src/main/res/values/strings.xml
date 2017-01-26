@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Labyrintharium</string>
+    <string name="start_game">Начать игру</string>
+    <string name="change_gamer">Сменить игрока</string>
+    <string name="settings">Настройки</string>
+    <string name="help">Справка</string>
+    <string name="exit">Выход</string>
+</resources>

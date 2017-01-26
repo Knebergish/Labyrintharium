@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#77422c"
+    android:isScrollContainer="true"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+
+
+
+    <ScrollView android:id="@+id/ScrlView" android:layout_width="fill_parent" android:layout_height="fill_parent" >
+        <LinearLayout android:id="@+id/layoutForScroll" android:orientation="vertical"
+            android:layout_width="fill_parent" android:layout_height="wrap_content"
+            >
+            <ToggleButton
+                android:id="@+id/toggleButton2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/button"
+                android:checked="true"
+                android:text="New ToggleButton"
+                android:textOff="Звуки: выключены"
+                android:textOn="Звуки: включены"
+                android:textSize="24sp" />
+
+            <ToggleButton
+                android:id="@+id/toggleButton"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/button"
+                android:checked="true"
+                android:text="New ToggleButton"
+                android:textOff="Музыка: выключена"
+                android:textOn="Музыка: включена"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/button10"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50dp"
+                android:background="#ffffff"
+                android:inputType="text"
+                android:text=""
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/button11"
+                style="@style/standart_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:onClick="changeScaleButton"
+                android:text="Изменить масштаб поля"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Внешний вид игрока:"
+                android:id="@+id/textView3"
+                android:layout_gravity="left|center_horizontal"
+                android:layout_marginTop="50dp"
+                android:textAlignment="center" />
+
+            <Spinner
+                android:id="@+id/skinSpinner"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.24"
+                android:spinnerMode="dropdown"
+                android:background="@drawable/button_selector" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
