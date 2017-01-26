@@ -1,12 +1,8 @@
 package ru.temon137.labyrintharium.Controls;
 
-import android.util.Log;
 import android.view.MotionEvent;
-import android.view.SurfaceView;
 
 import ru.temon137.labyrintharium.Settings;
-import ru.temon137.labyrintharium.World.GameObjects.Beings.Being;
-import ru.temon137.labyrintharium.World.World;
 
 public class Control {
     private static boolean controlEnabled;

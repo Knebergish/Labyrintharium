@@ -9,7 +9,6 @@ import android.view.SurfaceView;
 import java.util.Random;
 
 import ru.temon137.labyrintharium.Controls.Control;
-import ru.temon137.labyrintharium.Render.RenderThread;
 import ru.temon137.labyrintharium.World.GameObjects.Beings.Gamer;
 import ru.temon137.labyrintharium.World.GameObjects.Beings.Ghost;
 import ru.temon137.labyrintharium.World.GameObjects.Blocks.Block;

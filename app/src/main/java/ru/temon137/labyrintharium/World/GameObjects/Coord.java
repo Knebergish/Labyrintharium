@@ -30,13 +30,13 @@ public class Coord {
     }
 
     @Override
-    public boolean equals(Object obj){
-        if(!(obj instanceof Coord))
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Coord))
             return false;
 
-        Coord otherCoord = (Coord)obj;
+        Coord otherCoord = (Coord) obj;
 
-        if(x != otherCoord.getX() || y != otherCoord.getY() || z != otherCoord.getZ())
+        if (x != otherCoord.getX() || y != otherCoord.getY() || z != otherCoord.getZ())
             return false;
 
         return true;

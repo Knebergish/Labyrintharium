@@ -19,7 +19,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="false"
-        android:layout_alignParentStart="false"
         android:baselineAligned="false"
         android:measureWithLargestChild="false"
         android:id="@+id/linearLayout">

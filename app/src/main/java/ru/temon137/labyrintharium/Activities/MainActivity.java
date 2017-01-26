@@ -10,11 +10,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import ru.temon137.labyrintharium.EmperorOfGame;
-import ru.temon137.labyrintharium.MainGamePanel;
 import ru.temon137.labyrintharium.R;
 import ru.temon137.labyrintharium.Settings;
-import ru.temon137.labyrintharium.World.World;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();

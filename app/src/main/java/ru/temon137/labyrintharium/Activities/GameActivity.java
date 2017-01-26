@@ -2,7 +2,6 @@ package ru.temon137.labyrintharium.Activities;
 
 
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;

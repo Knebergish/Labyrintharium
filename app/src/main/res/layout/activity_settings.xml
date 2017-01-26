@@ -8,12 +8,17 @@
     android:weightSum="1">
 
 
+    <ScrollView
+        android:id="@+id/ScrlView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
+        <LinearLayout
+            android:id="@+id/layoutForScroll"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
 
-    <ScrollView android:id="@+id/ScrlView" android:layout_width="fill_parent" android:layout_height="fill_parent" >
-        <LinearLayout android:id="@+id/layoutForScroll" android:orientation="vertical"
-            android:layout_width="fill_parent" android:layout_height="wrap_content"
-            >
             <ToggleButton
                 android:id="@+id/toggleButton2"
                 android:layout_width="fill_parent"
