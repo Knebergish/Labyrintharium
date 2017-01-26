@@ -19,9 +19,9 @@ public class ControllerSurfaceView extends SurfaceView implements SurfaceHolder.
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         Control.init();
-        StandartController standartController = new StandartController(this);
+        StandartController standartController = new StandartController();
         Control.setController(standartController);
-        World.getRenderThread().addRendereable(standartController);
+        World.getRenderThread().setControllerRenderer(standartController);
         Control.setControlEnabled(true);
     }
 

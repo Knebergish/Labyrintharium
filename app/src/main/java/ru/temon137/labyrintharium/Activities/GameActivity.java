@@ -77,6 +77,9 @@ public class GameActivity extends AppCompatActivity {
     public void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
+        World.getRenderThread().setMainSurfaceView(mainSurfaceView);
+        World.getRenderThread().setControllerSurfaceView(controllerSurfaceView);
+
         loadLevel();
 
         MainThread mainThread = new MainThread();
@@ -98,27 +101,6 @@ public class GameActivity extends AppCompatActivity {
     protected void onDestroy() {
         Log.d("Тут", "Destroying...");
         super.onDestroy();
-    }
-
-    public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        if (isInit)
-            return;
-        isInit = true;
-
-        World.initialize();
-
-        Control.init();
-        Control.setController(new StandartController(controllerSurfaceView));
-
-        MainThread mainThread = new MainThread();
-        mainThread.setRunning(true);
-
-
-        loadLevel();
-
-
-        Control.setControlEnabled(true);
-        mainThread.start();
     }
 
     private void loadLevel() {

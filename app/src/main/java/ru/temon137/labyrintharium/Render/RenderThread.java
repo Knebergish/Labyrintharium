@@ -3,6 +3,8 @@ package ru.temon137.labyrintharium.Render;
 
 import android.graphics.Canvas;
 import android.util.Log;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 
 import java.util.ArrayList;
 
@@ -13,7 +15,10 @@ public class RenderThread extends Thread {
     private boolean runFlag;
     private ManualResetEvent isRender;
 
-    private final ArrayList<IRenderable> renderList;
+    private SurfaceView mainSurfaceView;
+    private SurfaceView controllerSurfaceView;
+    private IRenderable mainRenderer;
+    private IRenderable controllerRenderer;
     //=============
 
 
@@ -21,31 +26,45 @@ public class RenderThread extends Thread {
         runFlag = false;
         isRender = new ManualResetEvent(false);
 
-        renderList = new ArrayList<>();
+        mainSurfaceView = null;
+        controllerSurfaceView = null;
+        mainRenderer = null;
+        controllerRenderer = null;
     }
 
-    public void addRendereable(IRenderable renderable) {
-        renderList.add(renderable);
+    public synchronized void setMainSurfaceView(SurfaceView mainSurfaceView) {
+        this.mainSurfaceView = mainSurfaceView;
     }
 
-    public void removeRendereable(IRenderable renderable) {
-        renderList.remove(renderable);
+    public synchronized void setControllerSurfaceView(SurfaceView controllerSurfaceView) {
+        this.controllerSurfaceView = controllerSurfaceView;
     }
 
-    public void startRender() {
+    public synchronized void setMainRenderer(IRenderable mainRenderer) {
+        this.mainRenderer = mainRenderer;
+    }
+
+    public synchronized void setControllerRenderer(IRenderable controllerRenderer) {
+        this.controllerRenderer = controllerRenderer;
+    }
+
+
+    public synchronized void startRender() {
         isRender.set();
     }
 
-    public void pauseRender() {
+    public synchronized void pauseRender() {
         isRender.reset();
     }
 
-    public void stopRender() {
+    public synchronized void stopRender() {
         isRender.reset();
 
-        synchronized (renderList) {
-            renderList.clear();
-        }
+        mainSurfaceView = null;
+        controllerSurfaceView = null;
+        mainRenderer = null;
+        controllerRenderer = null;
+
         runFlag = false;
         isRender.set();
     }
@@ -57,29 +76,27 @@ public class RenderThread extends Thread {
         while (runFlag) {
             isRender.waitOne();
 
-            synchronized (renderList) {
-                for (IRenderable renderable : renderList)
-                    render(renderable);
-            }
-        }
+            if (mainSurfaceView != null && mainRenderer != null)
+                render(mainSurfaceView, mainRenderer);
 
-        Log.d("RT", "Умер.");
+            if (controllerSurfaceView != null && controllerRenderer != null)
+                render(controllerSurfaceView, controllerRenderer);
+        }
     }
 
-    private void render(IRenderable renderable) {
+    private void render(SurfaceView surfaceView, IRenderable renderer) {
         Canvas canvas = null;
         try {
-            canvas = renderable.getSurfaceHolder().lockCanvas(null);
+            canvas = surfaceView.getHolder().lockCanvas(null);
         } finally {
             if (canvas != null) {
-                synchronized (renderable.getSurfaceHolder()) {
-                    renderable.render(canvas);
+                synchronized (surfaceView.getHolder()) {
+                    renderer.render(canvas);
                 }
 
-                renderable.getSurfaceHolder().unlockCanvasAndPost(canvas);
+                surfaceView.getHolder().unlockCanvasAndPost(canvas);
             }
         }
-
     }
 }
 

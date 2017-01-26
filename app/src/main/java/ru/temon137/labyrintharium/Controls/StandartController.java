@@ -4,18 +4,15 @@ package ru.temon137.labyrintharium.Controls;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.support.annotation.NonNull;
 import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 
 import ru.temon137.labyrintharium.Render.IRenderable;
+import ru.temon137.labyrintharium.Settings;
 import ru.temon137.labyrintharium.World.GameObjects.Beings.Being;
 import ru.temon137.labyrintharium.World.World;
 
 
 public class StandartController implements IController, IRenderable {
-    private SurfaceView surfaceView;
     private Paint paint;
 
     private int shifterWidth;
@@ -24,17 +21,15 @@ public class StandartController implements IController, IRenderable {
     //=============
 
 
-    public StandartController(@NonNull SurfaceView surfaceView) {
-        this.surfaceView = surfaceView;
-
+    public StandartController() {
         paint = new Paint();
         paint.setColor(Color.GREEN);
         paint.setStrokeWidth(1);
         paint.setFilterBitmap(false);
         paint.setAntiAlias(false);
 
-        shifterWidth = surfaceView.getWidth() / 2;
-        shifterHeight = surfaceView.getHeight();
+        shifterWidth = Settings.getControllerRegionWidth() / 2;
+        shifterHeight = Settings.getControllerRegionHeight();
         coeff = (float) shifterWidth / (float) shifterHeight;
     }
 
@@ -42,11 +37,6 @@ public class StandartController implements IController, IRenderable {
     public synchronized void handleEvent(MotionEvent event) {
         if (event.getX() <= shifterWidth && event.getY() <= shifterHeight)
             shift(event);
-    }
-
-    @Override
-    public SurfaceHolder getSurfaceHolder() {
-        return surfaceView.getHolder();
     }
 
     @Override

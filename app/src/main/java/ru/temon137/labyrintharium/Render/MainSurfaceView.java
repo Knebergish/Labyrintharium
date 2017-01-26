@@ -44,28 +44,21 @@ public class MainSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        World.getRenderThread().addRendereable(this);
+        World.getRenderThread().setMainRenderer(this);
         World.getRenderThread().startRender();
     }
 
     @Override
     public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-
-    }
-
-    @Override
-    public SurfaceHolder getSurfaceHolder() {
-        return getHolder();
     }
 
     @Override
     public void render(Canvas canvas) {
-        coeff = canvas.getWidth() / Settings.getCountCellInScreen();
+        coeff = Settings.getMainRegionLength() / Settings.getCountCellInScreen();
 
         nextFPS();
         drawScreen(canvas);
@@ -89,8 +82,8 @@ public class MainSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         canvas.drawRect(
                 0,
                 0,
-                canvas.getWidth(),
-                canvas.getHeight(),
+                Settings.getMainRegionLength(),
+                Settings.getMainRegionLength(),
                 new Paint(Color.BLACK)
         );
 
