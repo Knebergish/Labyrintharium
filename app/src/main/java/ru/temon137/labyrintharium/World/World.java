@@ -7,6 +7,7 @@ import ru.temon137.labyrintharium.World.GameObjects.Blocks.Block;
 import ru.temon137.labyrintharium.World.GameObjects.Coord;
 import ru.temon137.labyrintharium.World.GameObjects.GameObject;
 
+
 public class World {
     private static Map<Block> backgroundsMap = new Map<>();
     private static Map<Block> blocksMap = new Map<>();
@@ -22,6 +23,10 @@ public class World {
         backgroundsMap = new Map<>();
         blocksMap = new Map<>();
         beingsMap = new Map<>();
+
+        if (renderThread != null)
+            renderThread.stopRender();
+        (renderThread = new RenderThread()).start();
     }
 
     public static Map<Block> getBackgroundsMap() {
@@ -48,10 +53,6 @@ public class World {
 
     public static RenderThread getRenderThread() {
         return renderThread;
-    }
-
-    public static void setRenderThread(RenderThread renderThread) {
-        World.renderThread = renderThread;
     }
 
 

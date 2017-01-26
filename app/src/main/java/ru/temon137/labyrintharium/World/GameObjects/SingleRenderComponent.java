@@ -1,8 +1,10 @@
 package ru.temon137.labyrintharium.World.GameObjects;
 
+
 import android.graphics.Bitmap;
 
 import ru.temon137.labyrintharium.Settings;
+
 
 public class SingleRenderComponent implements IRenderComponent {
     private Bitmap bitmap;

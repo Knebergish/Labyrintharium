@@ -1,8 +1,10 @@
 package ru.temon137.labyrintharium.World.GameObjects.Beings;
 
+
 import android.graphics.Bitmap;
 
 import ru.temon137.labyrintharium.Controls.Control;
+
 
 public class Gamer extends Being {
 
@@ -12,14 +14,8 @@ public class Gamer extends Being {
 
     @Override
     public void action() {
-        try {
-            Object balab;
-            synchronized (balab = Control.getBalab()) {
-                balab.wait();
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Control.getBalab().waitOne();
+        Control.getBalab().reset();
     }
 
     @Override

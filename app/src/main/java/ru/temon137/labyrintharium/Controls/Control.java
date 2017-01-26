@@ -1,20 +1,21 @@
 package ru.temon137.labyrintharium.Controls;
 
+
 import android.view.MotionEvent;
 
+import ru.temon137.labyrintharium.ManualResetEvent;
 import ru.temon137.labyrintharium.Settings;
+
 
 public class Control {
     private static boolean controlEnabled;
-    private static final Object balab = new Object();
+    private static final ManualResetEvent balab = new ManualResetEvent(false);
 
     private static IController controller;
 
     public static void init() {
         controlEnabled = false;
         controller = null;
-
-        controller = new StandartController();
     }
 
     public static void handleEvent(MotionEvent event) {
@@ -27,13 +28,10 @@ public class Control {
                 controller.handleEvent(event);
         }
 
-
-        synchronized (balab) {
-            balab.notifyAll();
-        }
+        balab.set();
     }
 
-    public static Object getBalab() {
+    public static ManualResetEvent getBalab() {
         return balab;
     }
 

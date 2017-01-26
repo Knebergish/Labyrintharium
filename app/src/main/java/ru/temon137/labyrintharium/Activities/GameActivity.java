@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -18,7 +17,8 @@ import ru.temon137.labyrintharium.Controls.Control;
 import ru.temon137.labyrintharium.Controls.StandartController;
 import ru.temon137.labyrintharium.MainThread;
 import ru.temon137.labyrintharium.R;
-import ru.temon137.labyrintharium.Render.RenderThread;
+import ru.temon137.labyrintharium.Render.ControllerSurfaceView;
+import ru.temon137.labyrintharium.Render.MainSurfaceView;
 import ru.temon137.labyrintharium.Settings;
 import ru.temon137.labyrintharium.World.GameObjects.Beings.Gamer;
 import ru.temon137.labyrintharium.World.GameObjects.Beings.Ghost;
@@ -27,9 +27,10 @@ import ru.temon137.labyrintharium.World.GameObjects.Coord;
 import ru.temon137.labyrintharium.World.World;
 
 
-public class GameActivity extends AppCompatActivity implements SurfaceHolder.Callback {
-    SurfaceView mainSurfaceView;
-    SurfaceView controllerSurfaceView;
+public class GameActivity extends AppCompatActivity {
+    private boolean isInit = false;
+    MainSurfaceView mainSurfaceView;
+    ControllerSurfaceView controllerSurfaceView;
     //============
 
 
@@ -44,8 +45,8 @@ public class GameActivity extends AppCompatActivity implements SurfaceHolder.Cal
         setContentView(R.layout.activity_game);
 
 
-        mainSurfaceView = new SurfaceView(this);
-        controllerSurfaceView = new SurfaceView(this);
+        mainSurfaceView = new MainSurfaceView(this);
+        controllerSurfaceView = new ControllerSurfaceView(this);
 
         mainSurfaceView.setLayoutParams(new LinearLayout.LayoutParams(
                 Settings.getMainRegionLength(),
@@ -55,7 +56,6 @@ public class GameActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 Settings.getControllerRegionWidth(),
                 Settings.getControllerRegionHeight()
         ));
-        mainSurfaceView.getHolder().addCallback(this);
 
 
         LinearLayout layout = new LinearLayout(this);
@@ -73,6 +73,17 @@ public class GameActivity extends AppCompatActivity implements SurfaceHolder.Cal
         );
     }
 
+    @Override
+    public void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        loadLevel();
+
+        MainThread mainThread = new MainThread();
+        mainThread.setRunning(true);
+
+        mainThread.start();
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -89,12 +100,15 @@ public class GameActivity extends AppCompatActivity implements SurfaceHolder.Cal
         super.onDestroy();
     }
 
-    @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
+        if (isInit)
+            return;
+        isInit = true;
+
         World.initialize();
 
         Control.init();
-        Control.setController(new StandartController());
+        Control.setController(new StandartController(controllerSurfaceView));
 
         MainThread mainThread = new MainThread();
         mainThread.setRunning(true);
@@ -103,24 +117,9 @@ public class GameActivity extends AppCompatActivity implements SurfaceHolder.Cal
         loadLevel();
 
 
-        World.setRenderThread(new RenderThread(mainSurfaceView.getHolder(), controllerSurfaceView.getHolder()));
-        World.getRenderThread().setRunning(true);
-        World.getRenderThread().start();
-
         Control.setControlEnabled(true);
         mainThread.start();
     }
-
-    @Override
-    public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-
-    }
-
-    @Override
-    public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-
-    }
-
 
     private void loadLevel() {
         Gamer gamer = new Gamer(

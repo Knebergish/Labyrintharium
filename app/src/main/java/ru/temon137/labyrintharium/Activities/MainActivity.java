@@ -1,5 +1,6 @@
 package ru.temon137.labyrintharium.Activities;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,8 @@ import android.view.WindowManager;
 
 import ru.temon137.labyrintharium.R;
 import ru.temon137.labyrintharium.Settings;
+import ru.temon137.labyrintharium.World.World;
+
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startGameButton(View view) {
+        World.initialize();
         startActivity(new Intent(this, GameActivity.class));
         //this.overridePendingTransition(0, 0);
     }
