@@ -74,7 +74,11 @@ public class RenderThread extends Thread {
         runFlag = true;
 
         while (runFlag) {
-            isRender.waitOne();
+            try {
+                isRender.waitOne();
+            } catch (InterruptedException e) {
+                stopRender();
+            }
 
             if (mainSurfaceView != null && mainRenderer != null)
                 render(mainSurfaceView, mainRenderer);

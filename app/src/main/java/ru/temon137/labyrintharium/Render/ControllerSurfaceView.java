@@ -7,6 +7,7 @@ import android.view.SurfaceView;
 
 import ru.temon137.labyrintharium.Controls.Control;
 import ru.temon137.labyrintharium.Controls.StandartController;
+import ru.temon137.labyrintharium.Controls.TextController;
 import ru.temon137.labyrintharium.World.World;
 
 
@@ -19,9 +20,15 @@ public class ControllerSurfaceView extends SurfaceView implements SurfaceHolder.
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         Control.init();
+
         StandartController standartController = new StandartController();
         Control.setController(standartController);
         World.getRenderThread().setControllerRenderer(standartController);
+
+        /*TextController textController = new TextController("Тестик");
+        Control.setController(textController);
+        World.getRenderThread().setControllerRenderer(textController);*/
+
         Control.setControlEnabled(true);
     }
 

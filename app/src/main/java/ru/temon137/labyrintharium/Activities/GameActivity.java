@@ -15,6 +15,7 @@ import java.util.Random;
 
 import ru.temon137.labyrintharium.Controls.Control;
 import ru.temon137.labyrintharium.Controls.StandartController;
+import ru.temon137.labyrintharium.Controls.TextController;
 import ru.temon137.labyrintharium.MainThread;
 import ru.temon137.labyrintharium.R;
 import ru.temon137.labyrintharium.Render.ControllerSurfaceView;
@@ -24,6 +25,8 @@ import ru.temon137.labyrintharium.World.GameObjects.Beings.Gamer;
 import ru.temon137.labyrintharium.World.GameObjects.Beings.Ghost;
 import ru.temon137.labyrintharium.World.GameObjects.Blocks.Block;
 import ru.temon137.labyrintharium.World.GameObjects.Coord;
+import ru.temon137.labyrintharium.World.Trigger;
+import ru.temon137.labyrintharium.World.TriggerManager;
 import ru.temon137.labyrintharium.World.World;
 
 
@@ -112,6 +115,14 @@ public class GameActivity extends AppCompatActivity {
                                 "drawable",
                                 "ru.temon137.labyrintharium"
                         )
+                ),
+                BitmapFactory.decodeResource(
+                        getResources(),
+                        getResources().getIdentifier(
+                                "magik",
+                                "drawable",
+                                "ru.temon137.labyrintharium"
+                        )
                 )
         );
         gamer.spawn(new Coord(5, 1));
@@ -156,5 +167,24 @@ public class GameActivity extends AppCompatActivity {
         for (int x = 0; x < 10; x++)
             for (int y = 0; y < 10; y++)
                 new Block(BitmapFactory.decodeResource(getResources(), g), true).spawn(new Coord(x, y));
+
+        TriggerManager triggerManager = new TriggerManager();
+        TriggerManager.setCurrentTriggerManager(triggerManager);
+        triggerManager.addTrigger(new Trigger(0, true) {
+            @Override
+            public void action() {
+                if (World.getGamer().getCoord().getY() == 1) {
+                    TextController textController = new TextController("Это помещение - самое " +
+                            "помещенское помещение, не бывает помещений более помещенского типа, " +
+                            "чем данное. \nДанное сообщение видят только избранные, непосвящнным " +
+                            "смердам оно не является. Для того, чтобы повысить свой ранг до рядового " +
+                            "смотрителя, оставьте сообщение на номер 131313. Если вам не ответя сразу, " +
+                            "значит вы не сдали экзамен. Для получения справки о сдаче экзамена "
+                    );
+                    Control.setController(textController);
+                    World.getRenderThread().setControllerRenderer(textController);
+                }
+            }
+        });
     }
 }

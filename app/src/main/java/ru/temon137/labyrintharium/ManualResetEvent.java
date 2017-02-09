@@ -11,14 +11,10 @@ public class ManualResetEvent {
         this.open = open;
     }
 
-    public void waitOne() {
+    public void waitOne() throws InterruptedException {
         synchronized (monitor) {
             while (!open) {
-                try {
-                    monitor.wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException("В MRE ошибочка.");
-                }
+                monitor.wait();
             }
         }
     }

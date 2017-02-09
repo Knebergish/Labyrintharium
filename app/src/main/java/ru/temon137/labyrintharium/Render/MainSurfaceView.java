@@ -13,8 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.temon137.labyrintharium.Settings;
+import ru.temon137.labyrintharium.World.GameObjects.Beings.Gamer;
 import ru.temon137.labyrintharium.World.GameObjects.Coord;
 import ru.temon137.labyrintharium.World.GameObjects.GameObject;
+import ru.temon137.labyrintharium.World.GameObjects.Spell;
 import ru.temon137.labyrintharium.World.World;
 
 
@@ -100,6 +102,14 @@ public class MainSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         // Отрисовка сущностей, находящихся в камере.
         for (GameObject gameObject : World.getBeingsMap().getAllT()) {
             cells.add(new Cell(gameObject.getCoord(), gameObject.getRenderComponent().getBitmap()));
+        }
+        //Отрисовка заклинания
+        Spell spell = ((Gamer) World.getGamer()).getSpell();
+        if (spell.isSpawned()) {
+            spell.update();
+        }
+        if (spell.isSpawned()) {
+            cells.add(new Cell(spell.getCoord(), spell.getRenderComponent().getBitmap()));
         }
 
         Coord gamerCoord = World.getGamer().getCoord();

@@ -9,7 +9,7 @@ import ru.temon137.labyrintharium.Settings;
 
 public class Control {
     private static boolean controlEnabled;
-    private static final ManualResetEvent balab = new ManualResetEvent(false);
+    //private static final ManualResetEvent balab = new ManualResetEvent(false);
 
     private static IController controller;
 
@@ -28,12 +28,12 @@ public class Control {
                 controller.handleEvent(event);
         }
 
-        balab.set();
+        //balab.set();
     }
 
-    public static ManualResetEvent getBalab() {
-        return balab;
-    }
+    //public static ManualResetEvent getBalab() {
+    //    return balab;
+    //}
 
     public static boolean isControlEnabled() {
         return controlEnabled;
