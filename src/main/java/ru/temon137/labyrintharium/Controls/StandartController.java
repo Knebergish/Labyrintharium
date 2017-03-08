@@ -1,11 +1,14 @@
 package ru.temon137.labyrintharium.Controls;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 
+import ru.temon137.labyrintharium.R;
 import ru.temon137.labyrintharium.Render.IRenderable;
 import ru.temon137.labyrintharium.Settings;
 import ru.temon137.labyrintharium.World.GameObjects.Beings.Being;
@@ -90,6 +93,6 @@ public class StandartController implements IController, IRenderable {
         if (isShot)
             shotterPaint.setColor(Color.GREEN);
         else
-            shotterPaint.setColor(Color.RED);
+            shotterPaint.setColor(Color.GRAY);
     }
 }

@@ -2,6 +2,7 @@ package ru.temon137.labyrintharium.Activities;
 
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
@@ -11,6 +12,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import ru.temon137.labyrintharium.Administratum;
+import ru.temon137.labyrintharium.DataBaseHelper;
 import ru.temon137.labyrintharium.R;
 import ru.temon137.labyrintharium.Settings;
 import ru.temon137.labyrintharium.World.World;
@@ -39,6 +42,16 @@ public class MainActivity extends AppCompatActivity {
                 11,
                 0
         );
+
+        Administratum administratum = new Administratum(this);
+        administratum.open();
+
+        long y = administratum.createUser("Emperor");
+        Cursor cursor = administratum.fetchAllUsers();
+        int count = cursor.getCount();
+        cursor.moveToNext();
+        String s = cursor.getString(0);
+        cursor.moveToNext();
     }
 
     public void startGameButton(View view) {
