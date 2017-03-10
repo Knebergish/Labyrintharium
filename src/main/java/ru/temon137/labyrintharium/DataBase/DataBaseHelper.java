@@ -1,4 +1,4 @@
-package ru.temon137.labyrintharium;
+package ru.temon137.labyrintharium.DataBase;
 
 import android.content.Context;
 import android.database.SQLException;

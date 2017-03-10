@@ -1,8 +1,15 @@
 package ru.temon137.labyrintharium;
 
-public class Settings {
-    private static boolean isInit = false;
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Environment;
+import android.util.DisplayMetrics;
+import android.view.Display;
 
+import java.io.File;
+
+public class Settings {
     private static int displayWidth;
     private static int displayHeight;
 
@@ -12,27 +19,79 @@ public class Settings {
     private static int controllerRegionHeight;
     private static float coeff;
 
-    private static int gamerSkinIndex;
+    private static long currentPlayer;
+    private static int playerSkinIndex;
+
+    private static SharedPreferences preferences;
     //=============
 
 
-    public static void init(int displayWidth, int displayHeight, int countCellInScreen, int gamerSkinIndex) {
-        if (isInit)
-            throw new RuntimeException("Настройки уже были установлены! Повторная инициализация невозможна.");
-        else
-            isInit = true;
+    public static void open(Activity activity) {
+        File file = new File(activity.getFilesDir().toString().replace("files", "") + "/shared_prefs/settings.xml");
+        preferences = activity.getSharedPreferences("settings", Context.MODE_PRIVATE);
 
-        Settings.displayWidth = displayWidth;
-        Settings.displayHeight = displayHeight;
 
-        Settings.countCellInScreen = countCellInScreen;
-        Settings.mainRegionLength = Math.min(displayWidth, displayHeight);
+        if (file.exists()) {
+            initFromFile();
+        } else {
+            init(activity);
+            save();
+        }
+    }
+
+    public static void close() {
+        save();
+    }
+
+    private static void save() {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+
+        editor.putInt("displayWidth", Settings.displayWidth);
+        editor.putInt("displayWidth", Settings.displayHeight);
+
+        editor.putInt("countCellInScreen", Settings.countCellInScreen);
+        editor.putInt("mainRegionLength", Settings.mainRegionLength);
+        editor.putInt("controllerRegionWidth", Settings.controllerRegionWidth);
+        editor.putInt("controllerRegionHeight", Settings.controllerRegionHeight);
+
+        editor.putLong("currentPlayer", Settings.currentPlayer);
+
+        editor.apply();
+        editor.commit();
+    }
+
+
+    private static void initFromFile() {
+        Settings.displayWidth = preferences.getInt("displayWidth", 0);
+        Settings.displayHeight = preferences.getInt("displayHeight", 0);
+
+        Settings.countCellInScreen = preferences.getInt("countCellInScreen", 0);
+        Settings.mainRegionLength = preferences.getInt("mainRegionLength", 0);
+        Settings.controllerRegionWidth = preferences.getInt("controllerRegionWidth", 0);
+        Settings.controllerRegionHeight = preferences.getInt("controllerRegionHeight", 0);
+        updateCoeff();
+
+        Settings.currentPlayer = preferences.getLong("currentPlayer", 1);
+    }
+
+    private static void init(Activity activity) {
+        Display display = activity.getWindowManager().getDefaultDisplay();
+        DisplayMetrics metricsB = new DisplayMetrics();
+        display.getMetrics(metricsB);
+
+        Settings.displayWidth = metricsB.widthPixels;
+        Settings.displayHeight = metricsB.heightPixels;
+
+        Settings.countCellInScreen = 11;
+        Settings.mainRegionLength = Math.min(metricsB.widthPixels, metricsB.heightPixels);
         Settings.controllerRegionWidth = Settings.displayWidth;
         Settings.controllerRegionHeight = Settings.displayHeight - Settings.mainRegionLength;
         updateCoeff();
 
-        Settings.gamerSkinIndex = gamerSkinIndex;
+        Settings.currentPlayer = -1;
     }
+
 
     public static float getDisplayWidth() {
         return displayWidth;
@@ -73,11 +132,19 @@ public class Settings {
     }
 
 
-    public static int getGamerSkinIndex() {
-        return gamerSkinIndex;
+    public static int getPlayerSkinIndex() {
+        return playerSkinIndex;
     }
 
-    public static void setGamerSkinIndex(int gamerSkinIndex) {
-        Settings.gamerSkinIndex = gamerSkinIndex;
+    public static void setPlayerSkinIndex(int playerSkinIndex) {
+        Settings.playerSkinIndex = playerSkinIndex;
+    }
+
+    public static long getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public static void setCurrentPlayer(long currentPlayer) {
+        Settings.currentPlayer = currentPlayer;
     }
 }

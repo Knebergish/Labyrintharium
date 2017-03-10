@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.SurfaceHolder;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -14,7 +13,6 @@ import android.widget.LinearLayout;
 import java.util.Random;
 
 import ru.temon137.labyrintharium.Controls.Control;
-import ru.temon137.labyrintharium.Controls.StandartController;
 import ru.temon137.labyrintharium.Controls.TextController;
 import ru.temon137.labyrintharium.MainThread;
 import ru.temon137.labyrintharium.R;
@@ -111,7 +109,7 @@ public class GameActivity extends AppCompatActivity {
                 BitmapFactory.decodeResource(
                         getResources(),
                         getResources().getIdentifier(
-                                getResources().getStringArray(R.array.skins)[Settings.getGamerSkinIndex()],
+                                getResources().getStringArray(R.array.skins)[Settings.getPlayerSkinIndex()],
                                 "drawable",
                                 "ru.temon137.labyrintharium"
                         )

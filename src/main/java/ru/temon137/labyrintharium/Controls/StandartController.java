@@ -37,7 +37,7 @@ public class StandartController implements IController, IRenderable {
         paint.setAntiAlias(false);
 
         shotterPaint = new Paint();
-        shotterPaint.setColor(Color.RED);
+        shotterPaint.setColor(Color.GRAY);
 
         shifterWidth = Settings.getControllerRegionWidth() / 2;
         shifterHeight = Settings.getControllerRegionHeight();

@@ -53,7 +53,7 @@ public class SettingsActivity extends AppCompatActivity {
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         skinSpinner.setAdapter(adapter);
-        skinSpinner.setSelection(Settings.getGamerSkinIndex());
+        skinSpinner.setSelection(Settings.getPlayerSkinIndex());
 
         skinSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,
@@ -61,7 +61,7 @@ public class SettingsActivity extends AppCompatActivity {
                                        int selectedItemPosition,
                                        long selectedId) {
 
-                Settings.setGamerSkinIndex((int) skinSpinner.getSelectedItemId());
+                Settings.setPlayerSkinIndex((int) skinSpinner.getSelectedItemId());
             }
 
             public void onNothingSelected(AdapterView<?> parent) {

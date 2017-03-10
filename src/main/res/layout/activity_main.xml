@@ -24,14 +24,14 @@
         android:id="@+id/linearLayout">
 
         <TextView
+            android:id="@+id/currentPlayerTextView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Имя игрока"
-            android:id="@+id/textView"
             android:layout_gravity="center_horizontal"
-            android:textColor="#ffffff"
             android:background="#8cc8cf"
+            android:text="Имя игрока"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#ffffff"
             android:textSize="32sp" />
 
         <Button

@@ -2,18 +2,16 @@ package ru.temon137.labyrintharium.Activities;
 
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
-import ru.temon137.labyrintharium.Administratum;
-import ru.temon137.labyrintharium.DataBaseHelper;
+import ru.temon137.labyrintharium.DataBase.Administratum;
+import ru.temon137.labyrintharium.DataBase.PlayersSubsystem;
 import ru.temon137.labyrintharium.R;
 import ru.temon137.labyrintharium.Settings;
 import ru.temon137.labyrintharium.World.World;
@@ -32,26 +30,28 @@ public class MainActivity extends AppCompatActivity {
         );
         setContentView(R.layout.activity_main);
 
+        Administratum.open(this);
+        Settings.open(this);
 
-        Display display = getWindowManager().getDefaultDisplay();
-        DisplayMetrics metricsB = new DisplayMetrics();
-        display.getMetrics(metricsB);
-        Settings.init(
-                metricsB.widthPixels,
-                metricsB.heightPixels,
-                11,
-                0
-        );
+        updatePlayerName();
+    }
 
-        Administratum administratum = new Administratum(this);
-        administratum.open();
+    private void updatePlayerName() {
+        PlayersSubsystem playersSubsystem = Administratum.getInstance().getPlayersSubsystem();
+        if (playersSubsystem.getCurrentPlayer() != null)
+            ((TextView) findViewById(R.id.currentPlayerTextView)).setText(
+                    playersSubsystem.getCurrentPlayer().getName()
+            );
+        else
+            ((TextView) findViewById(R.id.currentPlayerTextView)).setText(
+                    "Игрок не выбран"
+            );
+    }
 
-        long y = administratum.createUser("Emperor");
-        Cursor cursor = administratum.fetchAllUsers();
-        int count = cursor.getCount();
-        cursor.moveToNext();
-        String s = cursor.getString(0);
-        cursor.moveToNext();
+    @Override
+    public void onResume() {
+        super.onResume();
+        updatePlayerName();
     }
 
     public void startGameButton(View view) {
@@ -81,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        Administratum.close();
+        Settings.close();
+
         super.onBackPressed();
         System.exit(0);
     }
