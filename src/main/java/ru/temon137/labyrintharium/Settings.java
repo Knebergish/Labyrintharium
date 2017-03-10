@@ -3,11 +3,12 @@ package ru.temon137.labyrintharium;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.view.Display;
 
 import java.io.File;
+
+import ru.temon137.labyrintharium.DataBase.Administratum;
 
 public class Settings {
     private static int displayWidth;
@@ -73,6 +74,10 @@ public class Settings {
         updateCoeff();
 
         Settings.currentPlayer = preferences.getLong("currentPlayer", 1);
+        if (currentPlayer != -1)
+            Settings.playerSkinIndex = Administratum.getInstance().getPlayersSubsystem().getCurrentPlayer().getSkin();
+        else
+            Settings.playerSkinIndex = 0;
     }
 
     private static void init(Activity activity) {
@@ -146,5 +151,9 @@ public class Settings {
 
     public static void setCurrentPlayer(long currentPlayer) {
         Settings.currentPlayer = currentPlayer;
+        if (currentPlayer != -1)
+            Settings.playerSkinIndex = Administratum.getInstance().getPlayersSubsystem().getCurrentPlayer().getSkin();
+        else
+            Settings.playerSkinIndex = 0;
     }
 }

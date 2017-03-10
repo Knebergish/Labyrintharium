@@ -5,6 +5,8 @@
     android:background="#77422c"
     android:isScrollContainer="true"
     android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:weightSum="1">
 
 

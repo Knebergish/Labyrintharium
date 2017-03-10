@@ -109,7 +109,7 @@ public class GameActivity extends AppCompatActivity {
                 BitmapFactory.decodeResource(
                         getResources(),
                         getResources().getIdentifier(
-                                getResources().getStringArray(R.array.skins)[Settings.getPlayerSkinIndex()],
+                                getResources().getStringArray(R.array.skinsFiles)[Settings.getPlayerSkinIndex()],
                                 "drawable",
                                 "ru.temon137.labyrintharium"
                         )

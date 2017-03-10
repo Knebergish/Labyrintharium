@@ -11,8 +11,8 @@ import java.util.List;
 import ru.temon137.labyrintharium.Settings;
 
 public class PlayersSubsystem {
-    Administratum administratum;
-    SQLiteDatabase database;
+    private Administratum administratum;
+    private SQLiteDatabase database;
 
     PlayersSubsystem(Administratum administratum) {
         this.administratum = administratum;
@@ -54,7 +54,7 @@ public class PlayersSubsystem {
         return deleted;
     }
 
-    public boolean updatePlayer(long _id, String name, String skin) {
+    public boolean updatePlayer(long _id, String name, int skin) {
         ContentValues values = new ContentValues();
         values.put("_id", _id);
         values.put("name", name);

@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import ru.temon137.labyrintharium.DataBase.Administratum;
+import ru.temon137.labyrintharium.DataBase.Player;
 import ru.temon137.labyrintharium.R;
 import ru.temon137.labyrintharium.Settings;
 
@@ -48,12 +50,14 @@ public class SettingsActivity extends AppCompatActivity {
 
         ArrayAdapter<?> adapter = ArrayAdapter.createFromResource(
                 this,
-                R.array.skins,
+                R.array.skinsNames,
                 android.R.layout.simple_spinner_item
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         skinSpinner.setAdapter(adapter);
-        skinSpinner.setSelection(Settings.getPlayerSkinIndex());
+
+        final Player currentPlayer = Administratum.getInstance().getPlayersSubsystem().getCurrentPlayer();
+        skinSpinner.setSelection(currentPlayer.getSkin());
 
         skinSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,
@@ -61,6 +65,11 @@ public class SettingsActivity extends AppCompatActivity {
                                        int selectedItemPosition,
                                        long selectedId) {
 
+                Administratum.getInstance().getPlayersSubsystem().updatePlayer(
+                        currentPlayer.get_id(),
+                        currentPlayer.getName(),
+                        (int) skinSpinner.getSelectedItemId()
+                );
                 Settings.setPlayerSkinIndex((int) skinSpinner.getSelectedItemId());
             }
 

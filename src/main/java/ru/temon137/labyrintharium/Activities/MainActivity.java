@@ -55,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startGameButton(View view) {
+        if (Administratum.getInstance().getPlayersSubsystem().getCurrentPlayer() == null)
+            return;
+
         World.initialize();
         startActivity(new Intent(this, GameActivity.class));
         //this.overridePendingTransition(0, 0);
@@ -66,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void settingButton(View view) {
+        if (Administratum.getInstance().getPlayersSubsystem().getCurrentPlayer() == null)
+            return;
+
         startActivity(new Intent(this, SettingsActivity.class));
         //this.overridePendingTransition(0, 0);
     }
