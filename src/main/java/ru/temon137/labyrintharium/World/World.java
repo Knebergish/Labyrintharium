@@ -67,7 +67,7 @@ public class World {
         if ((temp = blocksMap.getT(coord)) != null)
             result = ((Block) temp).getPassableness() && result;
 
-        if (backgroundsMap.getT(coord) != null)
+        if (backgroundsMap.getT(coord) == null)
             result = false;
 
 

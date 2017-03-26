@@ -24,6 +24,8 @@ public abstract class GameObject {
 
     public abstract boolean spawn(Coord coord);
 
+    public abstract void despawn();
+
     public IRenderComponent getRenderComponent() {
         return renderComponent;
     }

@@ -30,6 +30,12 @@ public class Block extends GameObject {
         return setCoord(coord) && World.getBlocksMap().addT(this);
     }
 
+    @Override
+    public void despawn() {
+        //TODO: сделать нормальное удаление, с проверкой возможности.
+        World.getBlocksMap().removeT(coord);
+    }
+
     public boolean getPassableness() {
         return passableness;
     }

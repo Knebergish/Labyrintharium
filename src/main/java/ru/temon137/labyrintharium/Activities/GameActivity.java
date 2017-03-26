@@ -21,7 +21,9 @@ import ru.temon137.labyrintharium.Render.MainSurfaceView;
 import ru.temon137.labyrintharium.Settings;
 import ru.temon137.labyrintharium.World.GameObjects.Beings.Gamer;
 import ru.temon137.labyrintharium.World.GameObjects.Beings.Ghost;
+import ru.temon137.labyrintharium.World.GameObjects.Blocks.Background;
 import ru.temon137.labyrintharium.World.GameObjects.Blocks.Block;
+import ru.temon137.labyrintharium.World.GameObjects.Blocks.Gold;
 import ru.temon137.labyrintharium.World.GameObjects.Coord;
 import ru.temon137.labyrintharium.World.Trigger;
 import ru.temon137.labyrintharium.World.TriggerManager;
@@ -105,6 +107,36 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void loadLevel() {
+        int wallIdentifier = getResources().getIdentifier("lallipop12", "drawable", "ru.temon137.labyrintharium");
+        /*new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(5, 4));
+        new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(5, 5));
+        new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(5, 6));
+        new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(5, 7));*/
+
+        for (int x = 0; x < 10; x++)
+            new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(x, 0));
+        for (int x = 0; x < 10; x++)
+            new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(x, 9));
+        for (int y = 1; y < 9; y++)
+            new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(0, y));
+        for (int y = 1; y < 9; y++)
+            new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(9, y));
+
+        Random rnd = new Random();
+        for (int x = 1; x < 9; x++)
+            for (int y = 2; y < 9; y++) {
+                if (rnd.nextDouble() < 0.1)
+                    new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(x, y));
+            }
+
+        int g = getResources().getIdentifier("wooden_floor_2", "drawable", "ru.temon137.labyrintharium");
+        for (int x = 0; x < 10; x++)
+            for (int y = 0; y < 10; y++)
+                new Background(BitmapFactory.decodeResource(getResources(), g), true).spawn(new Coord(x, y));
+
+        int gold = getResources().getIdentifier("gold", "drawable", "ru.temon137.labyrintharium");
+        new Gold(BitmapFactory.decodeResource(getResources(), gold), true).spawn(new Coord(5, 2));
+
         Gamer gamer = new Gamer(
                 BitmapFactory.decodeResource(
                         getResources(),
@@ -137,34 +169,6 @@ public class GameActivity extends AppCompatActivity {
                 )
         );
         ghost.spawn(new Coord(2, 1));
-
-
-        int wallIdentifier = getResources().getIdentifier("lallipop12", "drawable", "ru.temon137.labyrintharium");
-        /*new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(5, 4));
-        new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(5, 5));
-        new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(5, 6));
-        new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(5, 7));*/
-
-        for (int x = 0; x < 10; x++)
-            new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(x, 0));
-        for (int x = 0; x < 10; x++)
-            new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(x, 9));
-        for (int y = 1; y < 9; y++)
-            new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(0, y));
-        for (int y = 1; y < 9; y++)
-            new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(9, y));
-
-        Random rnd = new Random();
-        for (int x = 1; x < 9; x++)
-            for (int y = 2; y < 9; y++) {
-                if (rnd.nextDouble() < 0.1)
-                    new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(x, y));
-            }
-
-        int g = getResources().getIdentifier("wooden_floor_2", "drawable", "ru.temon137.labyrintharium");
-        for (int x = 0; x < 10; x++)
-            for (int y = 0; y < 10; y++)
-                new Block(BitmapFactory.decodeResource(getResources(), g), true).spawn(new Coord(x, y));
 
         TriggerManager triggerManager = new TriggerManager();
         TriggerManager.setCurrentTriggerManager(triggerManager);

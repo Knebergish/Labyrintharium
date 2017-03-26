@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import ru.temon137.labyrintharium.ManualResetEvent;
 import ru.temon137.labyrintharium.World.GameObjects.Beings.Being;
 import ru.temon137.labyrintharium.World.GameObjects.Blocks.Block;
+import ru.temon137.labyrintharium.World.GameObjects.Blocks.Gold;
 import ru.temon137.labyrintharium.World.World;
 
 
@@ -74,10 +75,14 @@ public class Spell extends GameObject {
         Being being = World.getBeingsMap().getT(coord);
         if (being != null) {
             being.receiveDamage(1);
-            isSpawned = false;
+            despawn();
         }
 
-        //Block block = World.getBlocksMap().getT(coord);
+        Block block = World.getBlocksMap().getT(coord);
+        if (block instanceof Gold) {
+            block.despawn();
+            despawn();
+        }
     }
 
     @Override
@@ -85,6 +90,11 @@ public class Spell extends GameObject {
         this.coord = coord;
         currentRange = 0;
         return true;
+    }
+
+    @Override
+    public void despawn() {
+        isSpawned = false;
     }
 
     public boolean move(Being.Cource cource) {

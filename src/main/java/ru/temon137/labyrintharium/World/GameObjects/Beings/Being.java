@@ -66,5 +66,10 @@ public abstract class Being extends GameObject {
         return setCoord(coord) && World.getBeingsMap().addT(this);
     }
 
+    @Override
+    public void despawn() {
+        World.getBeingsMap().removeT(coord);
+    }
+
     public enum Cource {Left, Up, Right, Down, None}
 }

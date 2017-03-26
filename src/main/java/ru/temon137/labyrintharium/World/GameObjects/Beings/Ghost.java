@@ -7,10 +7,12 @@ import ru.temon137.labyrintharium.World.World;
 
 public class Ghost extends Being {
     private boolean hasStep;
+    private int hp;
 
     public Ghost(Bitmap bitmap) {
         super(bitmap);
         hasStep = true;
+        hp = 5;
     }
 
     @Override
@@ -23,7 +25,10 @@ public class Ghost extends Being {
 
     @Override
     public void receiveDamage(int damage) {
-
+        hp--;
+        if (hp <= 0) {
+            despawn();
+        }
     }
 
     @Override
