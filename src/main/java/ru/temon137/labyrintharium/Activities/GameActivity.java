@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import java.util.Random;
 
 import ru.temon137.labyrintharium.Controls.Control;
-import ru.temon137.labyrintharium.Controls.TextController;
+import ru.temon137.labyrintharium.Controls.StandartController;
 import ru.temon137.labyrintharium.MainThread;
 import ru.temon137.labyrintharium.R;
 import ru.temon137.labyrintharium.Render.ControllerSurfaceView;
@@ -106,32 +106,40 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void loadLevel() {
-        int wallIdentifier = getResources().getIdentifier("lallipop12", "drawable", "ru.temon137.labyrintharium");
+        int wallIdentifier = getResources().getIdentifier("lallipop12", "drawable",
+                                                          "ru.temon137.labyrintharium");
         /*new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(5, 4));
         new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(5, 5));
         new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(5, 6));
         new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(5, 7));*/
 
         for (int x = 0; x < 10; x++)
-            new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(x, 0));
+            new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(
+                    new Coord(x, 0));
         for (int x = 0; x < 10; x++)
-            new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(x, 9));
+            new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(
+                    new Coord(x, 9));
         for (int y = 1; y < 9; y++)
-            new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(0, y));
+            new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(
+                    new Coord(0, y));
         for (int y = 1; y < 9; y++)
-            new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(9, y));
+            new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(
+                    new Coord(9, y));
 
         Random rnd = new Random();
         for (int x = 1; x < 9; x++)
             for (int y = 2; y < 9; y++) {
                 if (rnd.nextDouble() < 0.1)
-                    new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier), false).spawn(new Coord(x, y));
+                    new Block(BitmapFactory.decodeResource(getResources(), wallIdentifier),
+                              false).spawn(new Coord(x, y));
             }
 
-        int g = getResources().getIdentifier("wooden_floor_2", "drawable", "ru.temon137.labyrintharium");
+        int g = getResources().getIdentifier("wooden_floor_2", "drawable",
+                                             "ru.temon137.labyrintharium");
         for (int x = 0; x < 10; x++)
             for (int y = 0; y < 10; y++)
-                new Background(BitmapFactory.decodeResource(getResources(), g), true).spawn(new Coord(x, y));
+                new Background(BitmapFactory.decodeResource(getResources(), g), true).spawn(
+                        new Coord(x, y));
 
         int gold = getResources().getIdentifier("gold", "drawable", "ru.temon137.labyrintharium");
         new Gold(BitmapFactory.decodeResource(getResources(), gold), true).spawn(new Coord(5, 2));
@@ -140,7 +148,8 @@ public class GameActivity extends AppCompatActivity {
                 BitmapFactory.decodeResource(
                         getResources(),
                         getResources().getIdentifier(
-                                getResources().getStringArray(R.array.skinsFiles)[Settings.getPlayerSkinIndex()],
+                                getResources().getStringArray(
+                                        R.array.skinsFiles)[Settings.getPlayerSkinIndex()],
                                 "drawable",
                                 "ru.temon137.labyrintharium"
                         )
@@ -175,15 +184,15 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void action() {
                 if (World.getGamer().getCoord().getY() == 5) {
-                    TextController textController = new TextController("Это помещение - самое " +
-                            "помещенское помещение, не бывает помещений более помещенского типа, " +
-                            "чем данное. \nДанное сообщение видят только избранные, непосвящнным " +
-                            "смердам оно не является. Для того, чтобы повысить свой ранг до рядового " +
-                            "смотрителя, оставьте сообщение на номер 131313. Если вам не ответя сразу, " +
-                            "значит вы не сдали экзамен. Для получения справки о сдаче экзамена ",
-                            "Тестим"
-                    );
-                    Control.addController(textController);
+                    StandartController currentController = (StandartController) Control.getCurrentController();
+                    currentController.addLog("Жил был рогалик.");
+                    currentController.addFutureLog("И все путали его с рогами.");
+                    currentController.addFutureLog(
+                            "Как-то раз рогалик рассердился и забодал смеющегося человека.");
+                    currentController.addFutureLog(
+                            "После этого все не смели смеяться над рогаликом.");
+                    currentController.addFutureLog("Все.");
+                    TriggerManager.getCurrentTriggerManager().deactivateTrigger(0);
                 }
             }
         });

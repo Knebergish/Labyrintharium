@@ -3,8 +3,6 @@ package ru.temon137.labyrintharium.Controls;
 
 import android.view.MotionEvent;
 
-import java.util.Stack;
-
 import ru.temon137.labyrintharium.Settings;
 import ru.temon137.labyrintharium.World.World;
 
@@ -12,11 +10,10 @@ import ru.temon137.labyrintharium.World.World;
 public class Control {
     private static boolean controlEnabled;
 
-    private static Stack<IController> controllers;
+    private static IController controller;
 
     public static void init() {
         controlEnabled = false;
-        controllers = new Stack<>();
     }
 
     public static void handleEvent(MotionEvent event) {
@@ -25,8 +22,8 @@ public class Control {
 
         if (event.getY() > Settings.getMainRegionLength()) {
             event.setLocation(event.getX(), event.getY() - Settings.getMainRegionLength());
-            if (controllers.size() > 0)
-                controllers.peek().handleEvent(event);
+            if (controller != null)
+                controller.handleEvent(event);
         }
     }
 
@@ -39,16 +36,11 @@ public class Control {
     }
 
     public static IController getCurrentController() {
-        return controllers.peek();
+        return controller;
     }
 
-    public static void addController(IController controller) {
-        controllers.push(controller);
+    public static void setController(IController controller) {
+        Control.controller = controller;
         World.getRenderThread().setControllerRenderer(controller);
-    }
-
-    public static void removeController() {
-        controllers.pop();
-        World.getRenderThread().setControllerRenderer(getCurrentController());
     }
 }

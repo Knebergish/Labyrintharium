@@ -45,7 +45,9 @@ public class TriggerManager {
 
     public void callAllTriggers() {
         for (Trigger t : triggers)
-            t.action();
+            if (t.getActive()) {
+                t.action();
+            }
     }
 
     public void activateTrigger(int number) {
