@@ -28,7 +28,9 @@ public class MainThread extends Thread {
 
             List<Being> beings = new ArrayList<>(World.getBeingsMap().getAllT());
             for (Being being : beings) {
-                being.action();
+                if (being.isSpawned()) {
+                    being.action();
+                }
             }
         }
     }

@@ -10,7 +10,7 @@ import ru.temon137.labyrintharium.World.World;
 public class Control {
     private static boolean controlEnabled;
 
-    private static IController controller;
+    private static StandartController controller;
 
     public static void init() {
         controlEnabled = false;
@@ -35,11 +35,11 @@ public class Control {
         Control.controlEnabled = controlEnabled;
     }
 
-    public static IController getCurrentController() {
+    public static StandartController getCurrentController() {
         return controller;
     }
 
-    public static void setController(IController controller) {
+    public static void setController(StandartController controller) {
         Control.controller = controller;
         World.getRenderThread().setControllerRenderer(controller);
     }

@@ -3,6 +3,7 @@ package ru.temon137.labyrintharium.World.GameObjects.Beings;
 
 import android.graphics.Bitmap;
 
+import ru.temon137.labyrintharium.Controls.Control;
 import ru.temon137.labyrintharium.ManualResetEvent;
 import ru.temon137.labyrintharium.World.GameObjects.Spell;
 
@@ -43,7 +44,10 @@ public class Gamer extends Being {
 
     @Override
     public void death() {
-
+        despawn();
+        Control.setControlEnabled(false);
+        Control.getCurrentController().addLog("Вас поглотил призрак. После поглощения призрак исчез. " +
+                                                      "Теперь лишь пыль будет обидать в этих покоях.");
     }
 
     public void shot(Cource cource) {

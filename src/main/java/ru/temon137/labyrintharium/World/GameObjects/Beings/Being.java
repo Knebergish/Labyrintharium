@@ -11,6 +11,7 @@ import ru.temon137.labyrintharium.World.World;
 public abstract class Being extends GameObject {
     private int healthPoints;
     private int damage;
+    private boolean isSpawned = false;
 
     public Being(Bitmap bitmap) {
         renderComponent = new SingleRenderComponent(bitmap);
@@ -63,12 +64,21 @@ public abstract class Being extends GameObject {
 
     @Override
     public boolean spawn(Coord coord) {
-        return setCoord(coord) && World.getBeingsMap().addT(this);
+        if (setCoord(coord) && World.getBeingsMap().addT(this)) {
+            isSpawned = true;
+            return true;
+        }
+        return false;
     }
 
     @Override
     public void despawn() {
         World.getBeingsMap().removeT(coord);
+        isSpawned = false;
+    }
+
+    public boolean isSpawned() {
+        return isSpawned;
     }
 
     public enum Cource {Left, Up, Right, Down, None}

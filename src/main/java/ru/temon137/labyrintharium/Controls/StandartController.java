@@ -413,11 +413,13 @@ public class StandartController implements IController {
             isNextLog = false;
         }
     }
+
+
+    private enum Action {
+        MOVE,
+        SHOT,
+        USE,
+        NEXT_LOG
+    }
 }
 
-enum Action {
-    MOVE,
-    SHOT,
-    USE,
-    NEXT_LOG
-}
