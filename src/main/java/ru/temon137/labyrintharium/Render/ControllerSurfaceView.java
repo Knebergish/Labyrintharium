@@ -18,10 +18,16 @@ public class ControllerSurfaceView extends SurfaceView implements SurfaceHolder.
 
         Control.init();
 
-        int wallIdentifier = getResources().getIdentifier("lallipop12", "drawable", "ru.temon137.labyrintharium");
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), wallIdentifier);
+        int moveIdentifier = getResources().getIdentifier("mover", "drawable", "ru.temon137.labyrintharium");
+        Bitmap moveBitmap = BitmapFactory.decodeResource(getResources(), moveIdentifier);
 
-        StandartController standartController = new StandartController(bitmap);
+        int shotIdentifier = getResources().getIdentifier("spell_button", "drawable", "ru.temon137.labyrintharium");
+        Bitmap shotBitmap = BitmapFactory.decodeResource(getResources(), shotIdentifier);
+
+        int wallIdentifier = getResources().getIdentifier("wooden_floor", "drawable", "ru.temon137.labyrintharium");
+        Bitmap wallBitmap = BitmapFactory.decodeResource(getResources(), wallIdentifier);
+
+        StandartController standartController = new StandartController(moveBitmap, shotBitmap, wallBitmap);
         Control.addController(standartController);
     }
 

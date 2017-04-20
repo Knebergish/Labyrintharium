@@ -3,7 +3,6 @@ package ru.temon137.labyrintharium.World.GameObjects.Beings;
 
 import android.graphics.Bitmap;
 
-import ru.temon137.labyrintharium.Controls.Control;
 import ru.temon137.labyrintharium.ManualResetEvent;
 import ru.temon137.labyrintharium.World.GameObjects.Spell;
 
@@ -48,6 +47,9 @@ public class Gamer extends Being {
     }
 
     public void shot(Cource cource) {
+        if (cource == Cource.None)
+            return;
+
         spell.spawn(coord);
         spell.shot(cource);
         try {

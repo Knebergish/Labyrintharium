@@ -174,7 +174,7 @@ public class GameActivity extends AppCompatActivity {
         triggerManager.addTrigger(new Trigger(0, true) {
             @Override
             public void action() {
-                if (World.getGamer().getCoord().getY() == 1) {
+                if (World.getGamer().getCoord().getY() == 5) {
                     TextController textController = new TextController("Это помещение - самое " +
                             "помещенское помещение, не бывает помещений более помещенского типа, " +
                             "чем данное. \nДанное сообщение видят только избранные, непосвящнным " +

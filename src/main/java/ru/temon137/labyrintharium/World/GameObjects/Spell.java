@@ -30,6 +30,9 @@ public class Spell extends GameObject {
     }
 
     public void shot(Being.Cource cource) {
+        if (cource == Being.Cource.None)
+            return;
+
         this.cource = cource;
         this.prevTime = System.currentTimeMillis();
         despawn.reset();

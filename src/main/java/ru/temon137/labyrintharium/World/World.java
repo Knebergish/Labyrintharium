@@ -3,6 +3,7 @@ package ru.temon137.labyrintharium.World;
 
 import ru.temon137.labyrintharium.Render.RenderThread;
 import ru.temon137.labyrintharium.World.GameObjects.Beings.Being;
+import ru.temon137.labyrintharium.World.GameObjects.Beings.Gamer;
 import ru.temon137.labyrintharium.World.GameObjects.Blocks.Block;
 import ru.temon137.labyrintharium.World.GameObjects.Coord;
 import ru.temon137.labyrintharium.World.GameObjects.GameObject;
@@ -16,7 +17,7 @@ public class World {
 
     private static RenderThread renderThread;
 
-    private static Being gamer;
+    private static Gamer gamer;
 
 
     public static void initialize() {
@@ -42,11 +43,11 @@ public class World {
     }
 
 
-    public static Being getGamer() {
+    public static Gamer getGamer() {
         return gamer;
     }
 
-    public static void setGamer(Being gamer) {
+    public static void setGamer(Gamer gamer) {
         World.gamer = gamer;
     }
 
