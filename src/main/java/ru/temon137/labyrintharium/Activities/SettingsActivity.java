@@ -9,7 +9,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.ToggleButton;
 
+import ru.temon137.labyrintharium.Controls.Position;
 import ru.temon137.labyrintharium.DataBase.Administratum;
 import ru.temon137.labyrintharium.DataBase.Player;
 import ru.temon137.labyrintharium.R;
@@ -18,6 +20,7 @@ import ru.temon137.labyrintharium.Settings;
 public class SettingsActivity extends AppCompatActivity {
     EditText scaleEditText;
     Spinner skinSpinner;
+    ToggleButton controlPositionToggleButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +29,18 @@ public class SettingsActivity extends AppCompatActivity {
 
         // перевод приложения в полноэкранный режим
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                             WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_settings);
 
         scaleEditText = (EditText) findViewById(R.id.editText2);
         scaleEditText.setText(Integer.toString(Settings.getCountCellInScreen()));
 
         settingSkinSpinner();
+
+        controlPositionToggleButton = (ToggleButton) findViewById(R.id.toggleButton3);
+        controlPositionToggleButton.setOnCheckedChangeListener(
+                (buttonView, isChecked) -> Settings.setControlPosition(
+                        isChecked ? Position.RIGHT : Position.LEFT));
     }
 
     @Override
@@ -76,5 +84,9 @@ public class SettingsActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+    }
+
+    public void changeControlPosition() {
+
     }
 }

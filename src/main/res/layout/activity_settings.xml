@@ -88,6 +88,18 @@
                 android:spinnerMode="dropdown"
                 android:background="@drawable/button_selector" />
 
+            <ToggleButton
+                android:id="@+id/toggleButton3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/button"
+                android:checked="true"
+                android:text="New ToggleButton"
+                android:textOff="Управление: слева"
+                android:textOn="Управление: справа"
+                android:textSize="24sp"/>
+
         </LinearLayout>
     </ScrollView>
 

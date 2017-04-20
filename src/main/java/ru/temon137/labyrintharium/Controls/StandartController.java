@@ -1,7 +1,6 @@
 package ru.temon137.labyrintharium.Controls;
 
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -68,7 +67,9 @@ public class StandartController implements IController {
     //=============
 
 
-    public StandartController(Bitmap moveBitmap, Bitmap shotBitmap, Bitmap wallBitmap) {
+    public StandartController(Position position) {
+        leftControl = position == Position.LEFT;
+
         Rect leftRect = new Rect(
                 0,
                 0,

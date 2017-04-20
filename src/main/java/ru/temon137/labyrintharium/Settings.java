@@ -8,6 +8,7 @@ import android.view.Display;
 
 import java.io.File;
 
+import ru.temon137.labyrintharium.Controls.Position;
 import ru.temon137.labyrintharium.DataBase.Administratum;
 
 public class Settings {
@@ -23,12 +24,15 @@ public class Settings {
     private static long currentPlayer;
     private static int playerSkinIndex;
 
+    private static Position controlPosition;
+
     private static SharedPreferences preferences;
     //=============
 
 
     public static void open(Activity activity) {
-        File file = new File(activity.getFilesDir().toString().replace("files", "") + "/shared_prefs/settings.xml");
+        File file = new File(activity.getFilesDir().toString().replace("files",
+                                                                       "") + "/shared_prefs/settings.xml");
         preferences = activity.getSharedPreferences("settings", Context.MODE_PRIVATE);
 
 
@@ -58,6 +62,8 @@ public class Settings {
 
         editor.putLong("currentPlayer", Settings.currentPlayer);
 
+        editor.putBoolean("controlPosition", Settings.controlPosition == Position.LEFT);
+
         editor.apply();
         editor.commit();
     }
@@ -78,6 +84,9 @@ public class Settings {
             Settings.playerSkinIndex = Administratum.getInstance().getPlayersSubsystem().getCurrentPlayer().getSkin();
         else
             Settings.playerSkinIndex = 0;
+
+        Settings.controlPosition = preferences.getBoolean("controlPosition", false)
+                ? Position.LEFT : Position.RIGHT;
     }
 
     private static void init(Activity activity) {
@@ -95,6 +104,8 @@ public class Settings {
         updateCoeff();
 
         Settings.currentPlayer = -1;
+
+        Settings.controlPosition = Position.RIGHT;
     }
 
 
@@ -155,5 +166,13 @@ public class Settings {
             Settings.playerSkinIndex = Administratum.getInstance().getPlayersSubsystem().getCurrentPlayer().getSkin();
         else
             Settings.playerSkinIndex = 0;
+    }
+
+    public static Position getControlPosition() {
+        return controlPosition;
+    }
+
+    public static void setControlPosition(Position controlPosition) {
+        Settings.controlPosition = controlPosition;
     }
 }
