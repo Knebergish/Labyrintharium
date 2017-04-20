@@ -2,23 +2,21 @@ package ru.temon137.labyrintharium.Controls;
 
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 
-import ru.temon137.labyrintharium.R;
-import ru.temon137.labyrintharium.Render.IRenderable;
 import ru.temon137.labyrintharium.Settings;
 import ru.temon137.labyrintharium.World.GameObjects.Beings.Being;
 import ru.temon137.labyrintharium.World.GameObjects.Beings.Gamer;
 import ru.temon137.labyrintharium.World.World;
 
 
-public class StandartController implements IController, IRenderable {
+public class StandartController implements IController {
     private Paint paint;
     private Paint shotterPaint;
+    Bitmap bitmap;
 
     private int shifterWidth;
     private int shifterHeight;
@@ -29,12 +27,14 @@ public class StandartController implements IController, IRenderable {
     //=============
 
 
-    public StandartController() {
+    public StandartController(Bitmap bitmap) {
         paint = new Paint();
         paint.setColor(Color.GREEN);
         paint.setStrokeWidth(3);
         paint.setFilterBitmap(false);
         paint.setAntiAlias(false);
+
+        this.bitmap = bitmap;
 
         shotterPaint = new Paint();
         shotterPaint.setColor(Color.GRAY);
@@ -62,6 +62,13 @@ public class StandartController implements IController, IRenderable {
         canvas.drawLine(0, 0, shifterWidth, shifterHeight, paint);
         canvas.drawLine(shifterWidth, 0, 0, shifterHeight, paint);
         canvas.drawRect(shifterWidth + 1, 0, shifterWidth + shotterWidth, shotterHeight, shotterPaint);
+
+        canvas.drawBitmap(
+                bitmap,
+                0,
+                0,
+                null
+        );
     }
 
 

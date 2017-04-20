@@ -16,11 +16,9 @@ import java.util.Collections;
 import java.util.List;
 
 import ru.temon137.labyrintharium.ManualResetEvent;
-import ru.temon137.labyrintharium.Render.IRenderable;
-import ru.temon137.labyrintharium.World.World;
 
 
-public class TextController implements IController, IRenderable {
+public class TextController implements IController {
     private List<String> stringList;
     private ManualResetEvent endStrings;
     private int textSize = 30;
@@ -34,9 +32,11 @@ public class TextController implements IController, IRenderable {
 
     @Override
     public void handleEvent(MotionEvent event) {
-        StandartController standartController = new StandartController();
-        Control.setController(standartController);
-        World.getRenderThread().setControllerRenderer(standartController);
+        if (stringList.size() > 1) {
+            stringList.remove(0);
+        } else {
+            Control.removeController();
+        }
     }
 
     @Override

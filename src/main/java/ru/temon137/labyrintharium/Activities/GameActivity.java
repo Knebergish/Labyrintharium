@@ -87,7 +87,6 @@ public class GameActivity extends AppCompatActivity {
 
         MainThread mainThread = new MainThread();
         mainThread.setRunning(true);
-
         mainThread.start();
     }
 
@@ -181,10 +180,10 @@ public class GameActivity extends AppCompatActivity {
                             "чем данное. \nДанное сообщение видят только избранные, непосвящнным " +
                             "смердам оно не является. Для того, чтобы повысить свой ранг до рядового " +
                             "смотрителя, оставьте сообщение на номер 131313. Если вам не ответя сразу, " +
-                            "значит вы не сдали экзамен. Для получения справки о сдаче экзамена "
+                            "значит вы не сдали экзамен. Для получения справки о сдаче экзамена ",
+                            "Тестим"
                     );
-                    Control.setController(textController);
-                    World.getRenderThread().setControllerRenderer(textController);
+                    Control.addController(textController);
                 }
             }
         });

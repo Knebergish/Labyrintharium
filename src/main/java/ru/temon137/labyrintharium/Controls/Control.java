@@ -3,19 +3,20 @@ package ru.temon137.labyrintharium.Controls;
 
 import android.view.MotionEvent;
 
-import ru.temon137.labyrintharium.ManualResetEvent;
+import java.util.Stack;
+
 import ru.temon137.labyrintharium.Settings;
+import ru.temon137.labyrintharium.World.World;
 
 
 public class Control {
     private static boolean controlEnabled;
-    //private static final ManualResetEvent balab = new ManualResetEvent(false);
 
-    private static IController controller;
+    private static Stack<IController> controllers;
 
     public static void init() {
         controlEnabled = false;
-        controller = null;
+        controllers = new Stack<>();
     }
 
     public static void handleEvent(MotionEvent event) {
@@ -24,16 +25,10 @@ public class Control {
 
         if (event.getY() > Settings.getMainRegionLength()) {
             event.setLocation(event.getX(), event.getY() - Settings.getMainRegionLength());
-            if (controller != null)
-                controller.handleEvent(event);
+            if (controllers.size() > 0)
+                controllers.peek().handleEvent(event);
         }
-
-        //balab.set();
     }
-
-    //public static ManualResetEvent getBalab() {
-    //    return balab;
-    //}
 
     public static boolean isControlEnabled() {
         return controlEnabled;
@@ -43,11 +38,17 @@ public class Control {
         Control.controlEnabled = controlEnabled;
     }
 
-    public static IController getController() {
-        return controller;
+    public static IController getCurrentController() {
+        return controllers.peek();
     }
 
-    public static void setController(IController controller) {
-        Control.controller = controller;
+    public static void addController(IController controller) {
+        controllers.push(controller);
+        World.getRenderThread().setControllerRenderer(controller);
+    }
+
+    public static void removeController() {
+        controllers.pop();
+        World.getRenderThread().setControllerRenderer(getCurrentController());
     }
 }
