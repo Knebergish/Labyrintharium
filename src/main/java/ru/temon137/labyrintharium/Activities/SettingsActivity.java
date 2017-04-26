@@ -38,6 +38,7 @@ public class SettingsActivity extends AppCompatActivity {
         settingSkinSpinner();
 
         controlPositionToggleButton = (ToggleButton) findViewById(R.id.toggleButton3);
+        controlPositionToggleButton.setChecked(Settings.getControlPosition() == Position.RIGHT);
         controlPositionToggleButton.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> Settings.setControlPosition(
                         isChecked ? Position.RIGHT : Position.LEFT));

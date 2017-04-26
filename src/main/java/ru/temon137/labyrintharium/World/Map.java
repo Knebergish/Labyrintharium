@@ -28,8 +28,6 @@ public class Map<T extends GameObject> {
 
 
     public boolean addT(T newT) {
-        //assert(newT != null);
-
         if (getT(newT.getCoord()) != null)
             return false;
 

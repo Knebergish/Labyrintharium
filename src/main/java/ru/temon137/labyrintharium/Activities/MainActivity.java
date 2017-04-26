@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import ru.temon137.labyrintharium.DataBase.Administratum;
 import ru.temon137.labyrintharium.DataBase.PlayersSubsystem;
@@ -55,8 +56,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startGameButton(View view) {
-        if (Administratum.getInstance().getPlayersSubsystem().getCurrentPlayer() == null)
+        if (Administratum.getInstance().getPlayersSubsystem().getCurrentPlayer() == null) {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                                         "Игрок не выбран!", Toast.LENGTH_SHORT);
+            toast.show();
             return;
+        }
 
         World.initialize();
         startActivity(new Intent(this, GameActivity.class));
@@ -93,16 +98,6 @@ public class MainActivity extends AppCompatActivity {
         super.onBackPressed();
         System.exit(0);
     }
-
-    /*@Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if(KeyEvent.KEYCODE_VOLUME_DOWN == keyCode)
-            Settings.setCountCellInScreen(Settings.getCountCellInScreen() - 1);
-        if(KeyEvent.KEYCODE_VOLUME_UP == keyCode)
-            Settings.setCountCellInScreen(Settings.getCountCellInScreen() + 1);
-
-        return false;
-    }*/
 
     @Override
     protected void onDestroy() {

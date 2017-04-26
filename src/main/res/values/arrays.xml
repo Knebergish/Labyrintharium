@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="skinsFiles">
+        <item>chebupel_1</item>
+        <item>chebupel_2</item>
+        <item>chebupel_3</item>
+        <item>chebupel_4</item>
+        <item>chebupelka</item>
+        <item>llnkcn</item>
+    </string-array>
+    <string-array name="skinsNames">
+        <item>Человек 1</item>
+        <item>Человек 2</item>
+        <item>Человек 3</item>
+        <item>Человек 4</item>
+        <item>Человечка</item>
+        <item>Человек?..</item>
+    </string-array>
+</resources>

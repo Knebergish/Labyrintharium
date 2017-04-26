@@ -14,10 +14,7 @@ public class HelpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // запрос на отключение строки заголовка
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-        // перевод приложения в полноэкранный режим
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 

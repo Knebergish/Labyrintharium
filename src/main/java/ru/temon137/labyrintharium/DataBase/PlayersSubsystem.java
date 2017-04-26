@@ -11,11 +11,9 @@ import java.util.List;
 import ru.temon137.labyrintharium.Settings;
 
 public class PlayersSubsystem {
-    private Administratum administratum;
     private SQLiteDatabase database;
 
     PlayersSubsystem(Administratum administratum) {
-        this.administratum = administratum;
         this.database = administratum.getDatabase();
     }
 

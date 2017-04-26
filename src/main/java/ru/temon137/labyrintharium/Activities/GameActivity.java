@@ -29,7 +29,6 @@ import ru.temon137.labyrintharium.World.World;
 
 
 public class GameActivity extends AppCompatActivity {
-    private boolean isInit = false;
     MainSurfaceView mainSurfaceView;
     ControllerSurfaceView controllerSurfaceView;
     //============
@@ -160,7 +159,7 @@ public class GameActivity extends AppCompatActivity {
         setBlock(wall, 1, 7, false);
         setBlock(wall, 1, 8, false);
 
-        int gold = getResources().getIdentifier("gold_2", "drawable", "ru.temon137.labyrintharium");
+        int gold = getResources().getIdentifier("gold", "drawable", "ru.temon137.labyrintharium");
         new Gold(BitmapFactory.decodeResource(getResources(), gold), true).spawn(new Coord(1, 3));
 
         Gamer gamer = new Gamer(
@@ -175,7 +174,7 @@ public class GameActivity extends AppCompatActivity {
                 BitmapFactory.decodeResource(
                         getResources(),
                         getResources().getIdentifier(
-                                "magik_2",
+                                "magik",
                                 "drawable",
                                 "ru.temon137.labyrintharium"
                         )
@@ -192,7 +191,7 @@ public class GameActivity extends AppCompatActivity {
             public void action() {
                 if (World.getGamer().getCoord().getY() == 3 &&
                         World.getGamer().getCoord().getX() == 6) {
-                    StandartController currentController = (StandartController) Control.getCurrentController();
+                    StandartController currentController = Control.getCurrentController();
 
                     currentController.addLog("Перед вами комната, в которой, судя по слою пыли, уже давно не живут.");
                     currentController.addFutureLog("Странно, но факел на стене горит.");
@@ -206,7 +205,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void action() {
                 if (World.getGamer().getCoord().getY() == 5) {
-                    StandartController currentController = (StandartController) Control.getCurrentController();
+                    StandartController currentController = Control.getCurrentController();
 
                     currentController.addLog("В дальнем углу комнаты стоит статуя мага.");
                     currentController.addFutureLog("Стоит ли к ней подходить?..");
@@ -220,7 +219,7 @@ public class GameActivity extends AppCompatActivity {
             public void action() {
                 if (World.getGamer().getCoord().getY() >= 5 &&
                         World.getGamer().getCoord().getX() == 6) {
-                    StandartController currentController = (StandartController) Control.getCurrentController();
+                    StandartController currentController = Control.getCurrentController();
 
                     new Ghost(BitmapFactory.decodeResource(
                             getResources(),

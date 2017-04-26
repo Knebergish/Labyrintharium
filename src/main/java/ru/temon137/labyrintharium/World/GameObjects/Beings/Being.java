@@ -20,11 +20,7 @@ public abstract class Being extends GameObject {
 
     @Override
     protected boolean isValidPosition(Coord newCoord) {
-        boolean result;
-        //result = !(newCoord.getX() < 0 || newCoord.getX() >= 6);
-        //result = !(newCoord.getY() < 0 || newCoord.getY() >= 6) && result;
-        result = World.isPassable(newCoord);// && result;
-        return result;
+        return World.isPassable(newCoord);
     }
 
     @Override

@@ -14,14 +14,10 @@ import java.io.OutputStream;
 public class DataBaseHelper extends SQLiteOpenHelper {
     private static String DB_PATH;
     private static String DB_NAME = "AdministratumDataBase.db";
-
-    private SQLiteDatabase administratumDataBase;
     private final Context context;
+    private SQLiteDatabase administratumDataBase;
 
-    /**
-     * Конструктор
-     * Принимает и сохраняет ссылку на переданный контекст для доступа к ресурсам приложения
-     */
+
     public DataBaseHelper(Context context) {
         super(context, DB_NAME, null, 1);
 
@@ -31,30 +27,20 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         openDataBase();
     }
 
-    /**
-     * Создает пустую базу данных и перезаписывает ее нашей собственной базой
-     */
     private void initializeDataBase() {
         boolean dbExist = dataBaseIsExist();
 
         if (!dbExist) {
-            //вызывая этот метод создаем пустую базу, позже она будет перезаписана
             this.getReadableDatabase();
 
             try {
                 copyDataBase();
             } catch (IOException e) {
-                //TODO: нормальная обработка отсутствия БД
                 throw new Error("Error copying database");
             }
         }
     }
 
-    /**
-     * Проверяет, существует ли уже эта база, чтобы не копировать каждый раз при запуске приложения
-     *
-     * @return true если существует, false если не существует
-     */
     private boolean dataBaseIsExist() {
         SQLiteDatabase checkDB;
 
@@ -68,25 +54,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    /**
-     * Копирует базу из папки assets заместо созданной локальной БД
-     * Выполняется путем копирования потока байтов.
-     */
     private void copyDataBase() throws IOException {
-        //Открываем локальную БД как входящий поток
         InputStream myInput = context.getAssets().open(DB_NAME);
-
-        //Открываем пустую базу данных как исходящий поток
         OutputStream myOutput = new FileOutputStream(DB_PATH);
 
-        //перемещаем байты из входящего файла в исходящий
         byte[] buffer = new byte[1024];
         int length;
         while ((length = myInput.read(buffer)) > 0) {
             myOutput.write(buffer, 0, length);
         }
 
-        //закрываем потоки
         myOutput.flush();
         myOutput.close();
         myInput.close();
@@ -115,8 +92,4 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
-
-    // Здесь можно добавить вспомогательные методы для доступа и получения данных из БД
-    // вы можете возвращать курсоры через "return administratumDataBase.query(....)", это облегчит их использование
-    // в создании адаптеров для ваших view
 }

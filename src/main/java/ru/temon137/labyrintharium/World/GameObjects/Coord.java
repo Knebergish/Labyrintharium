@@ -3,7 +3,6 @@ package ru.temon137.labyrintharium.World.GameObjects;
 
 public class Coord {
     private int x, y, z;
-    //
     //-------------
 
 

@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.temon137.labyrintharium.Settings;
-import ru.temon137.labyrintharium.World.GameObjects.Beings.Gamer;
 import ru.temon137.labyrintharium.World.GameObjects.Coord;
 import ru.temon137.labyrintharium.World.GameObjects.GameObject;
 import ru.temon137.labyrintharium.World.GameObjects.Spell;
@@ -62,9 +61,13 @@ public class MainSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     public void render(Canvas canvas) {
         coeff = Settings.getMainRegionLength() / Settings.getCountCellInScreen();
 
-        nextFPS();
+        //DEBUG
+        //nextFPS();
+
         drawScreen(canvas);
-        canvas.drawText(Integer.toString(fps), 50, 50, paint);
+
+        //DEBUG
+        //canvas.drawText(Integer.toString(fps), 50, 50, paint);
     }
 
 
@@ -78,7 +81,6 @@ public class MainSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     private void drawScreen(Canvas canvas) {
-        // Отрисовка стандартного фона
         canvas.drawColor(Color.WHITE);
 
         canvas.drawRect(
@@ -91,20 +93,20 @@ public class MainSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
         List<Cell> cells = new ArrayList<>();
 
-        // Отрисовка фонов, находящихся в камере.
+        // Отрисовка фонов
         for (GameObject gameObject : World.getBackgroundsMap().getAllT()) {
             cells.add(new Cell(gameObject.getCoord(), gameObject.getRenderComponent().getBitmap()));
         }
-        // Отрисовка блоков, находящихся в камере.
+        // Отрисовка блоков
         for (GameObject gameObject : World.getBlocksMap().getAllT()) {
             cells.add(new Cell(gameObject.getCoord(), gameObject.getRenderComponent().getBitmap()));
         }
-        // Отрисовка сущностей, находящихся в камере.
+        // Отрисовка сущностей
         for (GameObject gameObject : World.getBeingsMap().getAllT()) {
             cells.add(new Cell(gameObject.getCoord(), gameObject.getRenderComponent().getBitmap()));
         }
         //Отрисовка заклинания
-        Spell spell = ((Gamer) World.getGamer()).getSpell();
+        Spell spell = (World.getGamer()).getSpell();
         if (spell.isSpawned()) {
             spell.update();
         }
